@@ -27,7 +27,7 @@ food.speed(0)
 food.shape("square")
 food.color("green")
 food.penup()
-food.goto(0,0)
+food.goto(0,100)
 
 segments = []
 
