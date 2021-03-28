@@ -44,17 +44,13 @@ pen.write("Score: {}  High Score: {}".format(score, high_score), align="center",
 
 #functions
 def go_up():
-    if head.direction != "down":
-        head.direction = "up"
+    keypresses.append("up")
 def go_down():
-    if head.direction != "up":
-        head.direction = "down"
+    keypresses.append("down")
 def go_left():
-    if head.direction != "right":
-        head.direction = "left"
+    keypresses.append("left")
 def go_right():
-    if head.direction != "left":
-     head.direction = "right"
+    keypresses.append("right")
 def move():
     if head.direction == "up":
         y = head.ycor()
@@ -69,6 +65,7 @@ def move():
         x = head.xcor()
         head.setx(x+20)
 
+keypresses = []
 #key listeners
 wn.listen()
 wn.onkeypress(go_up, "Up")
@@ -99,7 +96,7 @@ while True:
     #check food and head collision
     if head.distance(food) < 1:
         score += 1
-        #delay -= 0.001   IS THIS NEEDED?
+        delay -= 0.001
         if score > high_score:
             high_score = score
         pen.clear()
@@ -126,6 +123,22 @@ while True:
         x = head.xcor()
         y = head.ycor()
         segments[0].goto(x,y)
+    print(keypresses)
+    for kp in keypresses:
+        if kp == "up":
+            if head.direction != "down":
+                head.direction = "up"
+        elif kp == "down":
+            if head.direction != "up":
+                head.direction = "down"
+        elif kp == "left":
+            if head.direction != "right":
+                head.direction = "left"
+        elif kp == "right":
+            if head.direction != "left":
+                head.direction = "right"
+        keypresses.remove(kp)
+        break
     #function that moves head ↓
     move()
 
@@ -150,4 +163,3 @@ while True:
             segments.clear()
     time.sleep(delay)
 
-#END OF CODE#
